@@ -1,0 +1,234 @@
+https://doc.rust-lang.org/book/
+https://github.com/rust-lang/book/tree/main/src
+
+
+
+Installing rustup on Linux or macOS
+-----------------------------------
+
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+->
+info: downloading installer
+Welcome to Rust!
+This will download and install the official compiler for the Rust
+programming language, and its package manager, Cargo.
+Rustup metadata and toolchains will be installed into the Rustup
+home directory, located at:
+  /home/am/.rustup
+This can be modified with the RUSTUP_HOME environment variable.
+The Cargo home directory located at:
+  /home/am/.cargo
+This can be modified with the CARGO_HOME environment variable.
+The cargo, rustc, rustup and other commands will be added to
+Cargo's bin directory, located at:
+  /home/am/.cargo/bin
+This path will then be added to your PATH environment variable by
+modifying the profile files located at:
+  /home/am/.profile
+  /home/am/.bashrc
+You can uninstall at any time with rustup self uninstall and
+these changes will be reverted.
+Current installation options:
+   default host triple: x86_64-unknown-linux-gnu
+     default toolchain: stable (default)
+               profile: default
+  modify PATH variable: yes
+1) Proceed with installation (default)
+2) Customize installation
+3) Cancel installation
+-> 
+1
+->
+info: profile set to 'default'
+info: default host triple is x86_64-unknown-linux-gnu
+info: syncing channel updates for 'stable-x86_64-unknown-linux-gnu'
+info: latest update on 2021-07-29, rust version 1.54.0 (a178d0322 2021-07-26)
+info: downloading component 'cargo'
+  6.0 MiB /   6.0 MiB (100 %)   3.2 MiB/s in  1s ETA:  0s
+info: downloading component 'clippy'
+info: downloading component 'rust-docs'
+ 16.7 MiB /  16.7 MiB (100 %)   3.2 MiB/s in  5s ETA:  0s
+info: downloading component 'rust-std'
+ 21.9 MiB /  21.9 MiB (100 %)   3.0 MiB/s in  7s ETA:  0s
+info: downloading component 'rustc'
+ 50.1 MiB /  50.1 MiB (100 %)   2.4 MiB/s in 19s ETA:  0s
+info: downloading component 'rustfmt'
+  3.7 MiB /   3.7 MiB (100 %)   2.2 MiB/s in  1s ETA:  0s
+info: installing component 'cargo'
+info: installing component 'clippy'
+info: installing component 'rust-docs'
+ 16.7 MiB /  16.7 MiB (100 %)   8.1 MiB/s in  2s ETA:  0s
+info: installing component 'rust-std'
+ 21.9 MiB /  21.9 MiB (100 %)  12.6 MiB/s in  1s ETA:  0s
+info: installing component 'rustc'
+ 50.1 MiB /  50.1 MiB (100 %)  13.9 MiB/s in  5s ETA:  0s
+info: installing component 'rustfmt'
+info: default toolchain set to 'stable-x86_64-unknown-linux-gnu'
+  stable-x86_64-unknown-linux-gnu installed - rustc 1.54.0 (a178d0322 2021-07-26)
+Rust is installed now. Great!                              xxxxxxxxxxxxxxxx
+To get started you may need to restart your current shell.
+This would reload your PATH environment variable to include
+Cargo's bin directory ($HOME/.cargo/bin).                  xxxxxxxxxxxxxxxx 
+To configure your current shell, run:
+source $HOME/.cargo/env
+
+linker
+------
+puede ser que me haga falta un linker (uno de c por ejemplo)
+como las siguientes comandas responden, voy a asumir que tengo uno instalado:
+  gcc -v
+  ld -v      -> GNU ld (GNU Binutils for Ubuntu) 2.34
+
+check version
+-------------
+rustc --version
+
+
+upgrade
+-------
+updating to the latest version is easy
+rustup update
+
+consultar documentacion local en browser
+----------------------------------------
+rustup doc
+
+To uninstall 
+------------
+rustup self uninstall
+
+
+comandes
+--------
+am@am-pc:~/it/rust/prj_hola$ rustc main.rs
+am@am-pc:~/it/rust/prj_hola$ ./main
+Hello, world!
+
+
+playstore
+---------
+https://crates.io/
+https://crates.io/crates/ibm_db
+
+cargo
+-----
+/home/am/.cargo
+
+db2
+---
+funciona con versiones recientes de rust
+necesitamos git y openssl
+
+https://crates.io/api/v1/crates/ibm_db/1.0.5/download
+descarrega un ibm_db-1.0.5.crate, encara que dona com un error a la web
+ho podem extreure
+
+per fer les proves farem servir un projecte que crearem 
+~/it/rust$ cargo new prj_db2
+aixo ens haura creat la carpeta del projecte amb un toml per defecte i un src per defecte.
+
+crear una carpeta examples dins el nou projecte i posar dins ella el 
+~/it/rust/ibm_db-1.0.5/examples/setup.rs (del paquet descarregat)
+  
+el toml del projecte ha de tenir les seguents dependencies:
+[build-dependencies]
+cc = "1.0"
+winapi = "0.2"
+user32-sys = "0.2"
+sys-info = "0.7.0"
+bitness = "0.4.0"
+error-chain = "0.12.4"
+tempfile = "3.1.0"
+reqwest = "0.10.10"
+tokio = { version = "0.2", features = ["full"] }
+futures = "0.3.8"
+zip = "0.5"
+flate2 = "1.0"
+tar = "0.4"
+
+[dependencies]
+winapi = "0.2"
+user32-sys = "0.2"
+sys-info = "0.7.0"
+bitness = "0.4.0"
+error-chain = "0.12.4"
+tempfile = "3.1.0"
+reqwest = "0.10.10"
+tokio = { version = "0.2", features = ["full"] }
+futures = "0.3.8"
+zip = "0.5"
+flate2 = "1.0"
+tar = "0.4"
+odbc-safe = "0.5.0"
+odbc-sys = "0.8.2"
+log = "0.4.1"
+encoding_rs = "0.8.14"
+prettytable-rs = "^0.8"
+lazy_static = "1.0"
+r2d2 = "0.8"
+
+ara instalem el driver, es a dir, fem un build del package (atencio, el nom del package consta al toml):
+  cd ~/it/rust/prj_db2 && cargo run --package prj_db2 --example setup
+
+  possible error "Could not find directory of OpenSSL installation"
+  ->
+  sudo apt-get install pkg-config libssl-dev
+
+  quan pregunta 
+  Please enter the path where you need to download the cli driver binary and set as IBM_DB_HOME environment variable 
+  (LEAVE BLANK FOR CURRENT DIRECTORY):
+  creo /home/am/it/rust/ibm-db-driver i l'indico.
+  en acabar diu...
+  IBM_DB_HOME set to /home/am/it/rust/ibm-db-driver/clidriver
+
+cal preparar la connexio amb la bd a ~/it/rust/ibm-db-driver/clidriver/cfg/db2dsdriver.cfg. eg:
+  <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+  <configuration>
+    <dsncollection>
+	<dsn alias="dashdb4" host="test@test.com" name="FOO" port="0000"/>
+    </dsncollection>
+    <databases>
+	<database host="test@test.com" name="FOO" port="0000"/>
+    </databases>
+  </configuration>
+  
+per incloure els drivers a un projecte
+  podem afegir a les dependencies Cargo.toml de dit projecte la linia: ibm_db = "1.0.5"
+  o
+  podem incloure el projecte dels drivers dins el projecte que els ha de fer servir
+  es a dir, que dins el nostre projecte, creariem un altre (eg: ~/it/rust/prj_db2$ cargo new ibm_db), 
+  posariem dins el contingut de la carpeta /home/am/it/rust/ibm-db-driver que hem obtingut abans, 
+  i afegiriem a les dependencies de ~/it/rust/prj_db2/Cargo.toml la linia: ibm_db = { path = "ibm_db", version = "1.0.5" }
+
+
+export LD_LIBRARY_PATH=/home/am/it/rust/ibm-db-driver/clidriver/bin
+export IBM_DB_HOME=/home/am/it/rust/ibm-db-driver/clidriver
+
+To run the sample i.e. main.rs simply execute
+  cargo run
+
+
+db2 (2)
+---
+per poder connectar a bd en general des d'un projecte, tal com es pot veure a...
+https://docs.rs/mysql/21.0.1/mysql/
+...hi hauria prou afegint la dependencia i ja es pot implementar el codi
+
+amb db2 no esta tan ben explicat, pero diria que inicialment vaig pensar que feia falta generar els drivers en local
+i probablement no. 
+
+probablement basta amb 
+afegir a les dependencies Cargo.toml de dit projecte la linia: ibm_db = "1.0.5"
+
+
+
+
+
+
+
+
+
+
+
+
+
